@@ -16,7 +16,7 @@ class _HomeState extends State<Home> {
         title: const Text('Home'),
       ),
       body: OpenStreetMapSearchAndPick(
-          center: LatLong(23, 89),
+          center: LatLong(24.924408027851378, 67.09037756884575),
           buttonColor: Colors.blue,
           buttonText: 'Set Current Location',
           onPicked: (pickedData) {}),

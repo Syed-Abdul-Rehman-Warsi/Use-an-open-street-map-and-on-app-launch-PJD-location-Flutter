@@ -1,6 +1,13 @@
+// ignore_for_file: non_constant_identifier_names
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
 
+var Location_Latitude = 24.905806321523784;
+var Location_Longitude = 67.06966102883611;
 void main() {
   runApp(const MyApp());
 }
@@ -50,8 +57,43 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  // This variable contain current location coordinate
+
+  // create a function for get current loactaion coordinates
+
+  Future<Position> getCurrentLocation() async {
+    var Current_Position = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high);
+    var LastPosition = await Geolocator.getLastKnownPosition();
+
+    setState(() {
+      Location_Latitude = Current_Position.latitude;
+      Location_Longitude = Current_Position.longitude;
+    });
+
+    return Current_Position;
+  }
+
+  void printcoordinates() async {
+    getCurrentLocation().then((value) async {
+      Location_Latitude = value.latitude;
+      Location_Longitude = value.longitude;
+      print(Location_Latitude);
+    });
+  }
+
+  void printcoordinates1() async {
+    getCurrentLocation();
+    print(Location_Latitude);
+    print(Location_Longitude);
+    print(Location_Latitude is double);
+    print(Location_Longitude is double);
+  }
+
   @override
   Widget build(BuildContext context) {
+    //getCurrentLocation();
+
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
     //
@@ -59,19 +101,35 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-        ),
-        body: OpenStreetMapSearchAndPick(
-            center: LatLong(24.924408027851378, 67.09037756884575),
-            buttonColor: Colors.blue,
-            buttonText: 'Set Current Location',
-            onPicked: (pickedData) {
-              print(pickedData.latLong.latitude);
-              print(pickedData.latLong.longitude);
-              print(pickedData.address);
-            }));
+      appBar: AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: Text(widget.title),
+      ),
+      body: OpenStreetMapSearchAndPick(
+          center: LatLong(Location_Latitude, Location_Longitude),
+          buttonColor: Colors.blue,
+          buttonText: 'Set Current Location',
+          onPicked: (pickedData) {
+            print(pickedData.latLong.latitude);
+            print(pickedData.latLong.longitude);
+            print(pickedData.address);
+          }),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          getCurrentLocation();
+          body:
+          OpenStreetMapSearchAndPick(
+              center: LatLong(Location_Latitude, Location_Longitude),
+              buttonColor: Colors.blue,
+              buttonText: 'Set Current Location',
+              onPicked: (pickedData) {
+                print(pickedData.latLong.latitude);
+                print(pickedData.latLong.longitude);
+                print(pickedData.address);
+              });
+        },
+      ),
+    );
   }
 }
