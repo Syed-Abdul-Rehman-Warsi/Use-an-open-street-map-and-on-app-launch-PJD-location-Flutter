@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Flutter Map',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const MyHomePage(title: 'Open Street Map'),
     );
   }
 }
@@ -100,8 +100,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: OpenStreetMapSearchAndPick(
           center: LatLong(Location_Latitude, Location_Longitude),
-          buttonColor: Colors.blue,
-          buttonText: 'Set Current Location',
           onPicked: (pickedData) {
             print(pickedData.latLong.latitude);
             print(pickedData.latLong.longitude);
@@ -113,8 +111,6 @@ class _MyHomePageState extends State<MyHomePage> {
           body:
           OpenStreetMapSearchAndPick(
               center: LatLong(Location_Latitude, Location_Longitude),
-              buttonColor: Colors.blue,
-              buttonText: 'Set Current Location',
               onPicked: (pickedData) {
                 print(pickedData.latLong.latitude);
                 print(pickedData.latLong.longitude);
