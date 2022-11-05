@@ -6,8 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:open_street_map_search_and_pick/open_street_map_search_and_pick.dart';
 
-var Location_Latitude = 24.905806321523784;
-var Location_Longitude = 67.06966102883611;
+// 24.90537089709816, 67.06976672790304
+var Location_Latitude = 24.90537089709816;
+var Location_Longitude = 67.06976672790304;
 void main() {
   runApp(const MyApp());
 }
@@ -78,16 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
     getCurrentLocation().then((value) async {
       Location_Latitude = value.latitude;
       Location_Longitude = value.longitude;
-      print(Location_Latitude);
     });
-  }
-
-  void printcoordinates1() async {
-    getCurrentLocation();
-    print(Location_Latitude);
-    print(Location_Longitude);
-    print(Location_Latitude is double);
-    print(Location_Longitude is double);
   }
 
   @override
